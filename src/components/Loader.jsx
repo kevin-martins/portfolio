@@ -1,19 +1,12 @@
+import { extend } from '@react-three/fiber'
 import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF, Environment } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
-// type Props = {
-//   url: string
-//   position?: number[]
-//   rotation?: number[]
-//   scale?: number[]
-// }
-
 const Loader = ({ url, ...props }) => {
   const levitate = useRef()
   const model = useGLTF(url)
-  console.log(model)
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => void (document.body.style.cursor = hovered ? 'pointer' : 'default'), [hovered])
@@ -27,7 +20,7 @@ const Loader = ({ url, ...props }) => {
   })
   // onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}
   return (
-    <mesh ref={levitate} onPointerOver={(e) => (e.stopPropagation(), setHovered(true))}>
+    <mesh ref={levitate} onPointerOver={(e) => {setHovered(true)}}>
       <primitive object={model.scene} {...props} />
       <Environment preset='city' />
     </mesh>
